@@ -1,16 +1,37 @@
+import AddCountry from "@/components/addCountry";
+import Country from "@/components/Country";
 import Header from "@/components/Header";
 import { allCountries } from "@/graphql/client";
+import { CountryType } from "@/types";
 import { useQuery } from "@apollo/client";
-import { ReactNode } from "react";
 
 export default function Home() {
-  const { data, error } = useQuery(allCountries);
+  const { data, error, loading } = useQuery<{ items: CountryType[] }>(
+    allCountries
+  );
   const countries = data ? data.items : [];
-  console.log(countries);
   return (
     <>
       <Header></Header>
-      <main></main>
+      <main>
+        <AddCountry></AddCountry>
+        <div className="countries_container">
+          {countries.map((item: CountryType) => (
+            <Country
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              emoji={item.emoji}
+              code={item.code}
+              continent={{
+                id: item.continent.id,
+                name: item.continent.name,
+              }}
+              link={`country/${item.code}`}
+            ></Country>
+          ))}
+        </div>
+      </main>
     </>
   );
 }
