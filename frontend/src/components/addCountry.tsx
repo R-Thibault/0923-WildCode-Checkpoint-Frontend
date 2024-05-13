@@ -26,7 +26,6 @@ export default function AddCountry() {
       code,
       continent: continentId ? { id: continentId } : null,
     };
-    console.log(name, emoji, code, continentId);
     if (name.length > 2 && emoji.length > 2 && code.length > 2) {
       const result = await doCreate({
         variables: {

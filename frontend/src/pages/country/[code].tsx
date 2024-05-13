@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 export default function Home() {
   const router = useRouter();
   const countryCode = router.query.code;
-  console.log(router.query.code);
   const { data, error, loading } = useQuery<{ item: CountryType }>(oneCountry, {
     variables: {
       code: countryCode,
