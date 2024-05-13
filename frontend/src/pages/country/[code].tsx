@@ -15,6 +15,9 @@ export default function Home() {
     },
   });
   const country = data ? data.item : null;
+  if (loading) {
+    return <p>Chargement</p>;
+  }
   return (
     <>
       <Header></Header>
