@@ -29,10 +29,14 @@ export default function Home() {
                 name={country.name}
                 emoji={country.emoji}
                 code={country.code}
-                continent={{
-                  id: country.continent.id,
-                  name: country.continent.name,
-                }}
+                continent={
+                  country?.continent?.id
+                    ? {
+                        id: country.continent.id,
+                        name: country.continent.name,
+                      }
+                    : null
+                }
                 link={null}
               ></Country>
             </>

@@ -6,7 +6,7 @@ export default function Country(props: CountryType): React.ReactNode {
     <div key={props.id.toString()} id={props.id.toString()}>
       <h3>{props.name}</h3>
       <p>{props.emoji}</p>
-      <p>{props.continent.name}</p>
+      <p>{props.continent?.name}</p>
       {props.link ? (
         <button>
           <Link href={props.link ? props.link : ""}>Details</Link>

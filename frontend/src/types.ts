@@ -1,11 +1,18 @@
 // TODO
 export type CountryType = {
   id: number;
-  code: number;
+  code: string;
   name: string;
   emoji: string;
-  continent: ContinentType;
+  continent: ContinentType | null;
   link: string | null;
+};
+
+export type AddCountryForm = {
+  code: string;
+  name: string;
+  emoji: string;
+  continent: ContinentType | null;
 };
 
 export type ContinentType = {
