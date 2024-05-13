@@ -12,7 +12,7 @@ export type AddCountryForm = {
   code: string;
   name: string;
   emoji: string;
-  continent: ContinentType | null;
+  continent: { id: number } | null;
 };
 
 export type ContinentType = {

@@ -33,7 +33,7 @@ export const oneCountry = gql`
 
 export const allContinents = gql`
   query Continents {
-    item: continents {
+    items: continents {
       id
       name
     }

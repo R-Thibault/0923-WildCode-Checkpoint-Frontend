@@ -17,20 +17,51 @@ body {
 .header {
   display: flex;
   justify-content: space-evenly;
+  margin: auto auto;
+  flex-wrap: wrap;
   align-items: center;
   background-color: pink;
 }
 
 .countries_container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  gap: 1rem;
+  gap: 1em;
 }
-
+.form_styled_container {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 1em;
+}
 .form_container {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-evenly;
-  margin: 5rem;
+  gap: 1em;
+  margin: 2em;
+}
+
+.form_input {
+  display: flex;
+  gap: 1em;
+}
+
+.btn_details {
+  background-color: blue;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.btn_details_text {
+  text-decoration: none;
+  color: white;
+}
+
+.btn_submit {
+  background-color: blue;
+  border-radius: 5px;
+  color: white;
+  padding: 5px;
 }

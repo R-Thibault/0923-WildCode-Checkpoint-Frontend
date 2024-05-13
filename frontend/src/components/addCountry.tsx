@@ -1,12 +1,18 @@
-import { addCountry, allCountries } from "@/graphql/client";
-import { AddCountryForm } from "@/types";
-import { useMutation } from "@apollo/client";
+import { addCountry, allContinents, allCountries } from "@/graphql/client";
+import { AddCountryForm, ContinentType } from "@/types";
+import { useMutation, useQuery } from "@apollo/client";
 import { FormEvent, useState } from "react";
 
 export default function AddCountry() {
   const [name, setName] = useState("");
   const [emoji, setEmoji] = useState("");
   const [code, setCode] = useState("");
+  const [continentId, setContinentId] = useState<null | number>(null);
+
+  const { data, error, loading } = useQuery<{ items: ContinentType[] }>(
+    allContinents
+  );
+  const continents = data ? data.items : [];
   const [doCreate, { loading: loadingCreate }] = useMutation(addCountry, {
     refetchQueries: [allCountries],
   });
@@ -16,9 +22,9 @@ export default function AddCountry() {
       name,
       emoji,
       code,
-      continent: null,
+      continent: continentId ? { id: continentId } : null,
     };
-    console.log(name, emoji, code);
+    console.log(name, emoji, code, continentId);
     if (name && emoji && code) {
       const result = await doCreate({
         variables: {
@@ -31,9 +37,9 @@ export default function AddCountry() {
   }
   return (
     <>
-      <div>
+      <div className="form_styled_container">
         <form onSubmit={onSubmit} className="form_container">
-          <div>
+          <div className="form_input">
             <label>Name</label>
             <input
               type="text"
@@ -43,7 +49,7 @@ export default function AddCountry() {
               required
             />
           </div>
-          <div>
+          <div className="form_input">
             <label>Emoji</label>
             <input
               type="text"
@@ -53,7 +59,7 @@ export default function AddCountry() {
               required
             />
           </div>
-          <div>
+          <div className="form_input">
             <label>Code</label>
             <input
               type="text"
@@ -63,7 +69,24 @@ export default function AddCountry() {
               required
             />
           </div>
-          <button type="submit">Submit</button>
+          <div className="form_input">
+            <label>Continent</label>
+            <select
+              name="continent"
+              value={continentId + ""}
+              onChange={(e) => setContinentId(Number(e.target.value))}
+            >
+              <option value={undefined}>-- Votre Choix --</option>
+              {continents.map((item) => (
+                <option value={item.id} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button type="submit" className="btn_submit">
+            Add
+          </button>
         </form>
       </div>
     </>
