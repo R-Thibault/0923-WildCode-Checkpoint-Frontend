@@ -65,3 +65,9 @@ body {
   color: white;
   padding: 5px;
 }
+
+.text_error {
+  margin: 1em;
+  color: red;
+  font-weight: bold;
+}

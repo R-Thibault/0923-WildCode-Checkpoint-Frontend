@@ -4,6 +4,8 @@ import { useMutation, useQuery } from "@apollo/client";
 import { FormEvent, useState } from "react";
 
 export default function AddCountry() {
+  const [errors, setErrors] = useState("");
+  const [succes, setSucces] = useState("");
   const [name, setName] = useState("");
   const [emoji, setEmoji] = useState("");
   const [code, setCode] = useState("");
@@ -25,19 +27,25 @@ export default function AddCountry() {
       continent: continentId ? { id: continentId } : null,
     };
     console.log(name, emoji, code, continentId);
-    if (name && emoji && code) {
+    if (name.length > 2 && emoji.length > 2 && code.length > 2) {
       const result = await doCreate({
         variables: {
           data: data,
         },
       });
+      if (result.errors?.length) {
+        setErrors("form");
+      }
     } else {
-      console.error("error");
+      setErrors("form");
     }
   }
   return (
     <>
       <div className="form_styled_container">
+        {errors === "form" && (
+          <p className="text_error">Error occured during country creation</p>
+        )}
         <form onSubmit={onSubmit} className="form_container">
           <div className="form_input">
             <label>Name</label>
